@@ -1,5 +1,6 @@
 use leptos::*;
 use crate::components::tictactoe_component::TicTacToeBoard;
+use crate::components::weather_component::WeatherDashboard;
 
 #[derive(Clone, Copy, PartialEq, Debug)]  // Added Debug derive
 pub enum Player {
@@ -22,6 +23,7 @@ pub struct GameState {
     pub current_player: Player,
     pub winner: Option<Player>,
     pub game_over: bool,
+    pub winning_cells: Option<[usize; 3]>,
 }
 
 impl Default for GameState {
@@ -31,6 +33,7 @@ impl Default for GameState {
             current_player: Player::X,
             winner: None,
             game_over: false,
+            winning_cells: None,
         }
     }
 }
@@ -57,6 +60,7 @@ pub fn TicTacToe() -> impl IntoView {
     };
 
     view! {
+        <div class="flex flex-row gap-8 justify-center items-start p-8">
         <div class="flex flex-col gap-4 justify-center items-center">
             <p class="flex justify-center items-center text-2xl font-bold">"Tic-Tac-Toe"</p>
             <TicTacToeBoard 
@@ -73,6 +77,12 @@ pub fn TicTacToe() -> impl IntoView {
             <button class="border border-2 border-black bg-[#f0f0f0] hover:bg-[#ddd] p-2 rounded-[0.625rem] px-12" on:click=reset_game>
                 "Play Again"
             </button>
+            </div>
+            
+            // Weather Dashboard
+            <div class="weather-container bg-white p-6 rounded-lg shadow-lg">
+                <WeatherDashboard/>
+            </div>
         </div>
     }
 }
@@ -90,6 +100,7 @@ fn check_game_state(state: &mut GameState) {
             if p1 == p2 && p2 == p3 {
                 state.winner = Some(p1);
                 state.game_over = true;
+                state.winning_cells = Some(comb);  // Add this line to set winning cells
                 break;
             }
         }
