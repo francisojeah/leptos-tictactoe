@@ -13,7 +13,7 @@ fn main() {
         <div>
             <Navbar/>
             <Router>
-                <Routes>
+            <Routes base="/leptos-tictactoe".to_string()>
                     <Route path="/" view=|| view! { <TicTacToe/> } />
                     <Route path="/about" view=|| view! { <AboutUs/> } />
                 </Routes>
