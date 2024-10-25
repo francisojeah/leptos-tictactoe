@@ -104,8 +104,8 @@ pub fn WeatherDashboard() -> impl IntoView {
 
 pub async fn get_weather_data() -> Result<WeatherData, WeatherError> {
     dotenv().ok();
-    
-    let api_key = env::var("WEATHER_API_KEY").map_err(|_| WeatherError::MissingApiKey)?;
+    // let api_key = std::env::var!("WEATHER_API_KEY").map_err(|_| WeatherError::MissingApiKey)?;
+    let api_key = std::env::var("WEATHER_API_KEY").map_err(|_| WeatherError::MissingApiKey)?;
     
     let url = format!(
         "https://api.openweathermap.org/data/2.5/weather?q=Lagos&appid={}&units=metric",
