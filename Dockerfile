@@ -16,5 +16,8 @@ COPY src/ ./src/
 # Build the project
 RUN cargo build --release
 
+# Expose the port that the app will run on
+EXPOSE 8080 
+
 # Set the command to run the application
 CMD ["cargo", "run", "--release"]
